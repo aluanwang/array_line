@@ -1,4 +1,4 @@
-#N canvas 158 141 905 529 10;
+#N canvas 158 141 920 578 10;
 #X obj 144 105 f;
 #X obj 384 279 ==;
 #X obj 183 388 +;
@@ -167,6 +167,7 @@ prevent loop repetition;
 #X obj 259 465 r \$0-second_array;
 #X obj 348 231 tabread \$1;
 #X obj 348 186 r \$0-first_array;
+#X text 590 531 made by Alexandros Drymonitis;
 #X connect 0 0 25 0;
 #X connect 1 0 22 0;
 #X connect 2 0 13 0;
