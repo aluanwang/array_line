@@ -19,14 +19,10 @@
 #X text 15 245 2 bang the abstraction and set these values to the "target"
 array in a [line] fashion;
 #X text 34 321 finished;
-#X text 488 37 1st: target array name;
-#X text 489 56 2nd: source array name;
 #X text 489 74 3rd: ramp time in milliseconds;
 #X text 490 92 4th: step size in cents;
 #X text 445 129 Inlets:;
 #X text 488 146 1st: bang to start the process;
-#X text 488 162 2nd: target array name (symbol);
-#X text 487 178 3rd: source array name (symbol);
 #X text 451 244 Outlet: bang when finished;
 #X msg 581 452 bang;
 #N canvas 0 22 450 278 (subpatch) 0;
@@ -39,7 +35,6 @@ array in a [line] fashion;
 #X restore 456 451 graph;
 #X obj 581 539 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 581 516 array_line target source 800 10;
 #X symbolatom 626 454 14 0 0 0 - - -, f 14;
 #X symbolatom 672 474 14 0 0 0 - - -, f 14;
 #X floatatom 718 496 5 0 0 0 - - -, f 5;
@@ -56,7 +51,6 @@ array in a [line] fashion;
 #X restore 26 151 graph;
 #X msg 26 246 bang;
 #X obj 26 268 t b b;
-#X obj 53 290 array_line dur_sync_target dur_sync_source 800 10;
 #X obj 26 322 timer;
 #X floatatom 26 344 5 0 0 0 - - -, f 5;
 #X text 25 26 this subpatch demonstrates the latency created in the
@@ -65,11 +59,12 @@ abstraction. the third argument (800) is supposed to be the ramp time
 same \, every time). don't really know how to calculate that latency
 (yet) \, so if you want to improve this \, please do (and let me know
 :);
+#X obj 53 290 array_line dur_sync_source dur_sync_target 800 10;
 #X connect 2 0 3 0;
-#X connect 3 0 5 0;
-#X connect 3 1 4 0;
-#X connect 4 0 5 1;
-#X connect 5 0 6 0;
+#X connect 3 0 4 0;
+#X connect 3 1 7 0;
+#X connect 4 0 5 0;
+#X connect 7 0 4 1;
 #X restore 792 574 pd duration_sync_test;
 #X text 533 574 check this ramp time sync test subpatch ->;
 #X text 21 566 made by Alexandros Drymonitis;
@@ -77,24 +72,29 @@ same \, every time). don't really know how to calculate that latency
 least on my computer). try more than once to see the ramp move more
 "elegantly";
 #X text 434 18 Arguments*:;
-#X obj 17 299 array_line target source;
-#X text 487 194 4th: ramp time in milliseconds (float)**;
-#X text 486 211 5th: step size in cents (float)***;
+#X text 489 194 4th: ramp time in milliseconds (float)**;
+#X text 489 211 5th: step size in cents (float)***;
 #X text 454 333 ** not very precise. check the subpatch below for info
 ;
 #X text 454 351 *** with a 100 element size array \, the lowest step
 size (in cents) that seems to work is 8 \, with a 20 element array
 (below) lowest step is sometimes 8 \, sometimes 7...you'll have to
 experiment;
+#X obj 17 299 array_line source target 800 10;
+#X text 488 37 1st: source array name;
+#X text 489 56 2nd: target array name;
+#X text 488 162 2nd: source array name (symbol);
+#X text 488 178 3rd: target array name (symbol);
+#X obj 581 516 array_line source target 800 10;
 #X text 454 277 * symbol arguments are necessary \, no default symbol.
 float arguments can be omitted \, default values are 0 . you don't
 need to specify the array size \, but both arrays need to have the
-same size;
-#X connect 0 0 34 0;
-#X connect 19 0 23 0;
-#X connect 23 0 22 0;
-#X connect 24 0 23 1;
-#X connect 25 0 23 2;
-#X connect 26 0 23 3;
-#X connect 27 0 23 4;
-#X connect 34 0 3 0;
+same size though;
+#X connect 0 0 33 0;
+#X connect 15 0 38 0;
+#X connect 19 0 38 1;
+#X connect 20 0 38 2;
+#X connect 21 0 38 3;
+#X connect 22 0 38 4;
+#X connect 33 0 3 0;
+#X connect 38 0 18 0;
